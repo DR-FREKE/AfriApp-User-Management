@@ -1,0 +1,89 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Afrirpay",
+    "description": "Afrirpay User Service",
+    "termsOfService": "",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "some descriptions",
+      "variables": {
+        "basePath": {
+          "default": "/api/v1"
+        }
+      }
+    },
+    {
+      "url": "https://afrirpayuserservice.herokuapp.com",
+      "description": "production link",
+      "variables": {
+        "basePath": {
+          "default": "/api/v1"
+        }
+      }
+    }
+  ],
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "api": ["./server/routes/*.js"],
+  "basePath": "/api/v1",
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["User Auth"],
+        "summary": "authenticate user",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Auth": {
+      "required": [
+        "username",
+        "phone",
+        "password",
+        "pin",
+        "otp_token",
+        "new_pin",
+        "old_pin"
+      ],
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Afrirpay",
+      "description": ""
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
